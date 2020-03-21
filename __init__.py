@@ -1,4 +1,5 @@
 import pyttsx3
+import json
 from helloUser import *
 import speech_recognition as sr
 
@@ -15,6 +16,12 @@ with sr.Microphone() as source:
 try:
 	user_name = r.recognize_google(audio);
 	print("TEXT : " + user_name)
+	# Store the username in json file
+	user = {}
+	user['name'] = user_name
+	with open('user_data.json', 'w') as f:
+		json.dump(user , f)
+
 except:
 		pass;
 

@@ -2,8 +2,8 @@
 
 ## Prerequisities
 * Python interpreter
-* pyttsx3
-* libespeak1
+* pyttsx3 ```pip install pyttsx3```
+* libespeak1 ```sudo apt-get install libespeack1```
 * SpeechRecognition ```pip install SpeechRecognition```
 * PyAudio  ```pip install PyAudio```
 
