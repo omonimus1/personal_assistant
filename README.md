@@ -11,7 +11,7 @@ Personall assistan application that integrates computer vision functionality to 
 # Gitflow
 
 * Create your own branch with the name of the issue that you are working on.
-* Create a merge request on the devel branch.
+*  Create a merge request on the devel branch (default branch).
 
 
 
