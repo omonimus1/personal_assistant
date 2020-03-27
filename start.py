@@ -1,60 +1,47 @@
+#!/usr/bin/env python
+
+# Author: Davide Pollicino
+# Date: 26/03/2020
+
+
 import pyttsx3
+engine = pyttsx3.init()
 import json
-from helloUser import *
-import os.path
-from os import path
+import os
+import helloUser
 import speech_recognition as sr
 
-
-engine = pyttsx3.init()
 r = sr.Recognizer()
-user_data_path = 'data/user_data.json'
-user_name = "The system did not recognize the name"
+file_path = 'data.json'
+
+"""
+	User profile Management 
+"""
+def does_user_exists(json_str):
+	resp = json.loads(json_str)
+	return resp['username']
 
 
-def is_data_file_present():
-	"""
-		:rtype: bool
-	"""
-	try:
-		if str(path.exists(user_data_path)):
-			return True
-	except IOError:
-			return False
+def load_default_user_data():
+	data = {  'username': '1' ,'email': '1' }
+	with open(file_path, "w") as write_file:
+		json_str = json.dumps(data)
+	return json_str
 
 
-def get_username_from_data_source():
-	try:
-		with open(user_data_path, 'r') as f:
-			with open('jsonfile.txt') as jsonfile:
-				parsed = json.load(jsonfile)
-			print json.dumps(parsed, indent=2, sort_keys=True)
-			f.close()
-		return parsed['name']
-	except IOError:
-			print('Error while loading data source file in path: ' + user_data_path)
-			return "Username not found"
-
-
-def store_username_in_data_source(username):
-	# Store the username in json file
-	user = { }
-	user['name'] = username
-	with open(user_data_path, 'w') as f:
-		json.dump(user, f)
-
-
-def ask_username_to_user():
+def ask_name_to_user():
+    
 	with sr.Microphone() as source:
 		print("Say your name")
 		audio = r.listen(source)
 		print("Time over, THANKS")
 	try:
 		username = r.recognize_google(audio);
-		print("TEXT : " + username)
 		return username
 	except:
-			pass;
+		print('Error while getting username')
+		pass
+
 
 
 """ RATE"""
@@ -65,18 +52,11 @@ print(rate)                        #printing current voice rate
 
 # Main
 def main():
-	data_source_present = is_data_file_present()
-	if  data_source_present:
-		username = get_username_from_data_source()
-		print('Name fetched from source: ' + username)
-		say_hello_in_base_to_hour(username)
-		engine.runAndWait()
-
-	else:
-		username = ask_username_to_user()
-		store_username_in_data_source(username)
-		say_hello_in_base_to_hour(username)
-		engine.runAndWait()
+	username = ask_name_to_user()
+	helloUser.say_hello_to_user(username)
+	helloUser.say_today_date()
+	# Necessary to use the builtin say() method
+	engine.runAndWait()
 
 
 main()
