@@ -21,6 +21,7 @@ Personall assistan application that integrates computer vision functionality to 
 * libespeak1 ```sudo apt-get install libespeack1```
 * SpeechRecognition ```pip install SpeechRecognition```
 * PyAudio  ```pip install PyAudio```
+* psutil ```wget https://bootstrap.pypa.io/get-pip.py -O - | python``` 
 
 ### Problems with PyAudio?
 ```sudo apt-get install portaudio19-dev python-pyaudio```
