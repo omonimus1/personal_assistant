@@ -3,17 +3,30 @@
 # Author: Davide Pollicino
 # Date: 26/03/2020
 
+import pyttsx3
+from gtts import gTTS
 import psutil  # https://github.com/giampaolo/psutil
 import speech_recognition as sr
-import pyttsx3
 import os
-import wikipediaapi
-engine = pyttsx3.init()
+import wikipedia
 import json
 import helloUser
 # Speech recognitionn with Google Speech Recognition API
 
+
+engine = pyttsx3.init()
 r = sr.Recognizer()
+
+# Assitante voice configurations
+""" RATE"""
+# For girl voice we can use the range +f1 to +f4
+# Remove the +fX we will have a default man voice
+engine.setProperty('voice', 'english+f2')
+rate = engine.getProperty('rate')  # getting details of current speaking rate
+engine.setProperty('rate', 185)    # setting up new voice rate
+print(rate)                        # printing current voice rate
+
+
 file_path = 'data.json'
 
 """
@@ -22,35 +35,25 @@ file_path = 'data.json'
 # Ask to the user in which language he would like to fetch the wiki
 def get_result_language():
     print('Inside get result language')
-    engine.say('I can provide you information in English,' + 
-        'Swedish, German, French, Russian, Italian or Spanish')
-    engine.say('Which language do you prefer for your wikipedia search?')
+
     language = ask_to_user()
-    if language == 'English':
-        language_code = 'en'
-        return language_code
-    elif language == 'Swedish':
-        language_code = 'sv'
-        return language_code
-    elif language == 'German':
-        language_code = 'de'
-        return language_code
-    elif language == 'French':
-        language_code = 'fr'
-        return language_code
-    elif language == 'Russian':
-        language_code = 'ru'
-        return language_code
-    elif language == 'Italian':
-        language_code = 'it'
-        return language_code
-    elif language == 'Spanish':
-        language_code = 'es'
-        return language_code
-    else:
-        engine.say('Sorry, I did not get the language '+
-            'o the language that you have indicated is not available, try again' )
-        get_result_language()
+    print('LANGUAGE HEARD  ' + str(language))
+    if "English" in language:
+        return 'en'
+    elif "Swedish" in language:
+        return 'sv'
+    elif "German" in language:
+        return 'de'
+    elif "French" in language:
+        return 'fr'
+    elif "Russian" in language:
+        return 'ru'
+    elif "Italian" in language:
+        return 'it'
+    elif "Spanish" in language:
+        return 'es'
+    print('Problem language retunr')
+    return 'dne'
 
 
 def get_page_to_search():
@@ -58,15 +61,24 @@ def get_page_to_search():
     page = ask_to_user()
     return page
 
+
 def wikipedia_search():
-    language_code = get_result_language()
-    # Filter the search on a specific language
-    wiki_wiki = wikipediaapi.Wikipedia(language_code)
+    engine.say('I can provide you information in English,' + 
+        'Swedish, German, French, Russian, Italian or Spanish')
+    engine.say('Which language do you prefer for your wikipedia search?')
+    language_code = 'dne'
+    while language_code == 'dne':
+        language_code = get_result_language()
+    # Set language
+    wikipedia.set_lang(language_code)
     page_name = get_page_to_search()
-    # Check if the page exists
-    page_py = wiki_wiki.page(page) 
+    # Search page
+    # ny = wikipedia.page(page_name)
+    wikipedia.summary(page_name, sentences=1)
+    engine.say(wikipedia.summary(page_name, sentences=1))
     # If the page does not exists, repeat search process
-    if( not page_py.exists()):
+    '''
+    if(not page_py.exists()):
         print('Soomethhing went wrong during the search, page does not exists')
         engine.say('The page that your are trying to search does not exists')
         engine.say('Please, be more specific')
@@ -77,39 +89,17 @@ def wikipedia_search():
         print(page_py.fullurl)
         engine.say(page_py.title)
         print(page_py.summary[0:60])
-        engine.say(page_py.summary[0:150])
-        
-        
-
-"""
-    User profile Management 
-"""
-
-# Get User information Secondion
-def does_user_exists(json_str):
-    resp = json.loads(json_str)
-    return resp['username']
-
-
-def load_default_user_data():
-    data = {  'username': '1' ,'email': '1' }
-    with open(file_path, "w") as write_file:
-        json_str = json.dumps(data)
-    return json_str
-
+        engine.say(page_py.summary)
+    '''
 
 def ask_to_user():
     with sr.Microphone() as source:
         print("Say something")
         audio = r.listen(source)
         print("Time over, THANKS")
-    try:
         vocal_command = r.recognize_google(audio)
+        print('I heard' + str(vocal_command))
         return vocal_command
-    except:
-        engine.say('I am sorry, there was an error while getting your name')
-        pass
-
 
 # Host device management
 def turn_off_device():
@@ -131,16 +121,6 @@ def get_battery_percentage():
         engine.say('Turn off your device to save battery')
 
 
-# Assitante voice configurations
-""" RATE"""
-# For girl voice we can use the range +f1 to +f4
-# Remove the +fX we will have a default man voice
-engine.setProperty('voice', 'english+f2')
-rate = engine.getProperty('rate')  # getting details of current speaking rate
-engine.setProperty('rate', 185)    # setting up new voice rate
-print(rate)                        # printing current voice rate
-
-
 # Introduce the personal assistant
 def assistant_introduction():
     engine.say('Hi, I am your personal assistant and I can')
@@ -150,9 +130,14 @@ def assistant_introduction():
 def list_functionalities():
     engine.say('Give you current time and date')
 
+# def ciao():
+#    engine.say('Ciaooo')
 
 # Main
 def main():
+    # engine.say('Main')
+    # ciao()
+    # print('passed main say')
     wikipedia_search()
     # assistant_introduction()
     # helloUser.current_time()
