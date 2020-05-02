@@ -9,7 +9,7 @@ import speech_recognition as sr
 import os
 import wikipedia
 import json
-import helloUser
+import dateManagement as dm
 # Speech recognitionn with Google Speech Recognition API
 
 
@@ -139,13 +139,14 @@ def main():
     # print('passed main say')
     # wikipedia_search()
     # assistant_introduction()
-    # helloUser.current_time()
-    username = ask_to_user()
+    # dm.current_time()
+    # username = ask_to_user()
     # print(username)
-    # helloUser.hello_to_user(username)
-    helloUser.say_today_date()
-    get_battery_percentage()
+    # dm.hello_to_user(username)
+    # dm.say_today_date()
+    # get_battery_percentage()
     # Necessary to use the builtin say() method
+    dm.get_day_from_a_date()
     engine.runAndWait()
 
 

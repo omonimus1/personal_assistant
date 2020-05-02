@@ -1,6 +1,6 @@
 import pyttsx3
 import datetime
-from datetime import datetime
+from datetime import datetime, date
 import speech_recognition as sr
 
 engine = pyttsx3.init()
@@ -83,3 +83,21 @@ def say_today_date():
     month = get_name_of_the_month(month_id)
     year = get_year()
     engine.say('Today is the: ' + day + 'of' + month + str(year))
+
+def get_day_name_having_its_day_id(day_id):
+    if day_id == 0:
+        return 'Monday'
+    elif day_id == 1:
+        return 'Tuesday'
+    elif day_id == 2:
+        return 'Wednesday' 
+    elif day_id == 3:
+        return 'Thursday' 
+    elif day_id == 4:
+        return 'Friday' 
+    elif day_id == 5:
+        return 'Saturday' 
+    else:
+        return 'Sunday'
+
+
