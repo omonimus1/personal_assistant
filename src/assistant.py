@@ -4,7 +4,6 @@
 # Date: 26/03/2020
 
 import pyttsx3
-from gtts import gTTS
 import psutil  # https://github.com/giampaolo/psutil
 import speech_recognition as sr
 import os
@@ -138,13 +137,13 @@ def main():
     # engine.say('Main')
     # ciao()
     # print('passed main say')
-    wikipedia_search()
+    # wikipedia_search()
     # assistant_introduction()
     # helloUser.current_time()
-    # username = ask_to_user()
+    username = ask_to_user()
     # print(username)
     # helloUser.hello_to_user(username)
-    # helloUser.say_today_date()
+    helloUser.say_today_date()
     get_battery_percentage()
     # Necessary to use the builtin say() method
     engine.runAndWait()
