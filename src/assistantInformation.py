@@ -27,3 +27,8 @@ def list_functionalities():
     functionalities = 'Give you current time and date'
     print(functionalities)
     engine.say(functionalities)
+
+def assistant_emotion_state():
+    state = 'I am very well, thank you'
+    print(state)
+    engine.say(state)

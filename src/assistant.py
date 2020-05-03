@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # Author: Davide Pollicino
 # Date: 26/03/2020
 
@@ -64,6 +62,9 @@ def get_page_to_search():
 
 
 def wikipedia_search():
+    wiki_introduction = 'I can provide you information in English,' + 
+        'Swedish, German, French, Russian, Italian or Spanish''
+    
     engine.say('I can provide you information in English,' + 
         'Swedish, German, French, Russian, Italian or Spanish')
     engine.say('Which language do you prefer for your wikipedia search?')
@@ -78,20 +79,7 @@ def wikipedia_search():
     print(wikipedia.summary(page_name, sentences=1))
     engine.say(wikipedia.summary(page_name, sentences=1))
     # If the page does not exists, repeat search process
-    '''
-    if(not page_py.exists()):
-        print('Soomethhing went wrong during the search, page does not exists')
-        engine.say('The page that your are trying to search does not exists')
-        engine.say('Please, be more specific')
-        wikipedia_search()
-    else:
-        # Provide information found
-        print('Printing page information')
-        print(page_py.fullurl)
-        engine.say(page_py.title)
-        print(page_py.summary[0:60])
-        engine.say(page_py.summary)
-    '''
+
 
 def ask_to_user():
     try:
@@ -108,40 +96,34 @@ def ask_to_user():
 
 
 def commands_control():
-  while(True):
-      engine.say('What Can I do for you?')
-      command = ask_to_user()
-      if command == 'Hi' or command == 'Hello':
-          dm.say_hello()
-      elif 'your name' in command:
-          ai.assistant_introduction()
-      elif 'old are you' in command :
-          ai.provide_assistant_age()
-      elif 'date' and 'today' in command:
-          dm.say_today_date()
-      elif 'reboot' in command:
-          device.reboot_device()
-      elif 'shutdown' or 'turn off' in command:
-          device.turn_off_device()
-     elif 'battery' in command:
-         device.get_battery_state()
-      
-      
+    while(True):
+        engine.say('What Can I do for you?')
+        command = ask_to_user()
+        if command == 'Hi' or command == 'Hello':
+            dm.say_hello()
+        elif 'your name' in command:
+            ai.assistant_introduction()
+        elif 'old are you' in command:
+            ai.provide_assistant_age()
+        elif 'how are you' in command:
+            ai.assistant_emotion_state()
+        elif 'date' and 'today' in command:
+            dm.say_today_date()
+        elif 'battery' in command:
+            device.get_battery_state()
+        elif 'reboot' in command:
+            device.reboot_device()
+        elif 'shutdown' or 'turn off' in command:
+            device.turn_off_device()
+        elif 'search' or 'mean' or 'meaning' in command:
+            # Remove not essential words for research
+            query_search_filtered = {command.replace('search','').replace('mean','').replace('meaning','')}
+        
+
 
 # Main
 def main():
     commands_control()
-    # engine.say('Main')
-    # print('passed main say')
-    # wikipedia_search()
-    assistant_introduction()
-    # dm.current_time()
-    # username = ask_to_user()
-    # dm.hello_to_user(username)
-    # dm.say_today_date()
-    get_battery_percentage()
-    # Necessary to use the builtin say() method
-    # dm.get_day_from_a_date()
     engine.runAndWait()
 
 

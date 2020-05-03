@@ -85,7 +85,7 @@ def say_today_date():
     month_id = get_month_id()
     month = get_name_of_the_month(month_id)
     year = get_year()
-    today_date = 'Today is ' + day + ' of ' + month + ' ' str(year)
+    today_date = 'Today is ' + day + ' of ' + month + ' ' + str(year)
     print(today_date)
     engine.say(today_date)
 

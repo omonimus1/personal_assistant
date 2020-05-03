@@ -1,0 +1,8 @@
+# Files genereted at runtime
+.github/
+# Compiled or interpreted code
+.pyc
+# Testing data
+data/
+# Cache folder
+__pycache__/
