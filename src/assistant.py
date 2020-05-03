@@ -56,29 +56,19 @@ def get_result_language():
 
 
 def get_page_to_search():
-    engine.say('What would you like to search?')
+    research_message = 'What would you like to search?'
+    print(research_message)
+    engine.say(research_message)
     page = ask_to_user()
     return page
 
 
-def wikipedia_search():
-    wiki_introduction = 'I can provide you information in English,' + 
-        'Swedish, German, French, Russian, Italian or Spanish''
-    
-    engine.say('I can provide you information in English,' + 
-        'Swedish, German, French, Russian, Italian or Spanish')
-    engine.say('Which language do you prefer for your wikipedia search?')
-    language_code = 'dne'
-    while language_code == 'dne':
-        language_code = get_result_language()
+def wikipedia_search(page_search):
     # Set language
-    wikipedia.set_lang(language_code)
-    page_name = get_page_to_search()
-
-    
+    wikipedia.set_lang('en')
+    page_name = {page_search.replace('search', '').replace('mean', '').replace('meaning', '')}
     print(wikipedia.summary(page_name, sentences=1))
     engine.say(wikipedia.summary(page_name, sentences=1))
-    # If the page does not exists, repeat search process
 
 
 def ask_to_user():
@@ -99,7 +89,10 @@ def commands_control():
     while(True):
         engine.say('What Can I do for you?')
         command = ask_to_user()
-        if command == 'Hi' or command == 'Hello':
+        # Set all the string to lowercase
+        command = command.lower()
+        # Find possible command 
+        if 'hi' in command or 'hello' in command:
             dm.say_hello()
         elif 'your name' in command:
             ai.assistant_introduction()
@@ -107,18 +100,17 @@ def commands_control():
             ai.provide_assistant_age()
         elif 'how are you' in command:
             ai.assistant_emotion_state()
-        elif 'date' and 'today' in command:
+        elif 'date' in command and  'today' in command:
             dm.say_today_date()
         elif 'battery' in command:
             device.get_battery_state()
         elif 'reboot' in command:
             device.reboot_device()
-        elif 'shutdown' or 'turn off' in command:
-            device.turn_off_device()
-        elif 'search' or 'mean' or 'meaning' in command:
-            # Remove not essential words for research
-            query_search_filtered = {command.replace('search','').replace('mean','').replace('meaning','')}
-        
+        elif 'turn off' in command:
+            device.turn_off_device
+        elif 'search' in command or 'means' in command:
+            search = get_page_to_search()
+            wikipedia_search(search)
 
 
 # Main
