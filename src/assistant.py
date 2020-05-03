@@ -10,6 +10,8 @@ import os
 import wikipedia
 import json
 import dateManagement as dm
+import assistantInformation as ai
+import systemManagement as device
 # Speech recognitionn with Google Speech Recognition API
 
 
@@ -71,9 +73,9 @@ def wikipedia_search():
     # Set language
     wikipedia.set_lang(language_code)
     page_name = get_page_to_search()
-    # Search page
-    # ny = wikipedia.page(page_name)
-    wikipedia.summary(page_name, sentences=1)
+
+    
+    print(wikipedia.summary(page_name, sentences=1))
     engine.say(wikipedia.summary(page_name, sentences=1))
     # If the page does not exists, repeat search process
     '''
@@ -92,61 +94,54 @@ def wikipedia_search():
     '''
 
 def ask_to_user():
-    with sr.Microphone() as source:
-        print("Say something")
-        audio = r.listen(source)
-        print("Time over, THANKS")
-        vocal_command = r.recognize_google(audio)
-        print('I heard' + str(vocal_command))
-        return vocal_command
-
-# Host device management
-def turn_off_device():
-    engine.say('Shutting down the device')
-    os.system("shutdown /s /t 1")
-
-
-def reboot_device():
-    engine.say('Alright, I am rebooting the system')
-    os.system("shutdown /r /t 1")
+    try:
+        with sr.Microphone() as source:
+            print("Say something")
+            audio = r.listen(source)
+            print("Time over, THANKS")
+            vocal_command = r.recognize_google(audio)
+            print('I heard: ' + str(vocal_command))
+            return str(vocal_command)   
+    except:
+        engine.say('I did not get what you said')
+        ask_to_user()
 
 
-def get_battery_percentage():
-    battery = psutil.sensors_battery()
-    plugged = battery.power_plugged
-    percent = battery.percent
-    if percent <= 15.0 and plugged is False:
-        engine.say('Ehi, mind that you are running out of battery')
-        engine.say('Turn off your device to save battery')
-
-
-# Introduce the personal assistant
-def assistant_introduction():
-    engine.say('Hi, I am your personal assistant and I can')
-    list_functionalities()
-
-
-def list_functionalities():
-    engine.say('Give you current time and date')
-
-# def ciao():
-#    engine.say('Ciaooo')
+def commands_control():
+  while(True):
+      engine.say('What Can I do for you?')
+      command = ask_to_user()
+      if command == 'Hi' or command == 'Hello':
+          dm.say_hello()
+      elif 'your name' in command:
+          ai.assistant_introduction()
+      elif 'old are you' in command :
+          ai.provide_assistant_age()
+      elif 'date' and 'today' in command:
+          dm.say_today_date()
+      elif 'reboot' in command:
+          device.reboot_device()
+      elif 'shutdown' or 'turn off' in command:
+          device.turn_off_device()
+     elif 'battery' in command:
+         device.get_battery_state()
+      
+      
 
 # Main
 def main():
+    commands_control()
     # engine.say('Main')
-    # ciao()
     # print('passed main say')
     # wikipedia_search()
-    # assistant_introduction()
+    assistant_introduction()
     # dm.current_time()
     # username = ask_to_user()
-    # print(username)
     # dm.hello_to_user(username)
     # dm.say_today_date()
-    # get_battery_percentage()
+    get_battery_percentage()
     # Necessary to use the builtin say() method
-    dm.get_day_from_a_date()
+    # dm.get_day_from_a_date()
     engine.runAndWait()
 
 

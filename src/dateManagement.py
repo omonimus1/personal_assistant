@@ -35,20 +35,23 @@ def current_time():
     engine.say('Current time is: ' + str(hour) + 'and' + str(minute))
 
 
-def say_hello(day_fraction, user_name):
-    engine.say(day_fraction + " " + user_name)
+def say_hello():
+    hello = 'Hello!'
+    print(hello)
+    engine.say(hello)
 
 
-def hello_to_user(user):
+def hello_to_user():
     hour = get_hour()
+    intro = 'Hi, I hope you are having a'
     if hour >= 5 and hour < 12:
-        say_hello('Good morning', user)
+        say_hello(intro + ' good morning')
     elif hour >= 12 and hour < 18:
-        say_hello('Good afternoon', user)
+        say_hello(intro + ' good afternoon')
     elif hour >= 18 and hour < 21:
-        say_hello('Good evening', user)
+        say_hello(intro + ' good evening')
     elif hour >= 21:
-        say_hello('Good night', user)
+        say_hello(intro + ' good night')
 
 
 def get_name_of_the_month(month_number):
@@ -82,7 +85,10 @@ def say_today_date():
     month_id = get_month_id()
     month = get_name_of_the_month(month_id)
     year = get_year()
-    engine.say('Today is the: ' + day + 'of' + month + str(year))
+    today_date = 'Today is ' + day + ' of ' + month + ' ' str(year)
+    print(today_date)
+    engine.say(today_date)
+
 
 def get_day_name_having_its_day_id(day_id):
     if day_id == 0:
