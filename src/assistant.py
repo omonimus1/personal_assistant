@@ -6,7 +6,6 @@ import psutil  # https://github.com/giampaolo/psutil
 import speech_recognition as sr
 import os
 import wikipedia
-import json
 import dateManagement as dm
 import assistantInformation as ai
 import systemManagement as device

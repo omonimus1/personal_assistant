@@ -2,9 +2,7 @@
 import pyttsx3
 import psutil  # https://github.com/giampaolo/psutil
 import speech_recognition as sr
-import os
-import wikipedia
-import json
+
 
 
 engine = pyttsx3.init()
