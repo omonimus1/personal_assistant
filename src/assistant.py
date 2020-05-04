@@ -89,7 +89,6 @@ def commands_control():
     while(True):
         engine.say('What Can I do for you?')
         command = ask_to_user()
-        # Set all the string to lowercase
         command = command.lower()
         # Find possible command 
         if 'hi' in command or 'hello' in command:
@@ -111,7 +110,11 @@ def commands_control():
         elif 'search' in command or 'means' in command:
             search = get_page_to_search()
             wikipedia_search(search)
-
+        else:
+            did_not_get_information_message = 'I am sorry I did not get what you asked me'
+            prit(did_not_get_information_message)
+            engine.say(did_not_get_information_message)
+            commands_control()
 
 # Main
 def main():
