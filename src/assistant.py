@@ -114,11 +114,12 @@ def commands_control():
             prit(did_not_get_information_message)
             engine.say(did_not_get_information_message)
             commands_control()
+            engine.runAndWait()
+        engine.runAndWait()
 
 # Main
 def main():
     commands_control()
-    engine.runAndWait()
 
 
 main()
