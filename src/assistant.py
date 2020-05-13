@@ -1,59 +1,38 @@
 # Author: Davide Pollicino
 # Date: 26/03/2020
 
-import pyttsx3
-import psutil  # https://github.com/giampaolo/psutil
-import speech_recognition as sr
 import os
+
+# Third part modules
+import pyttsx3
+import psutil 
+import speech_recognition as sr
 import wikipedia
+# Custom modules
 import dateManagement as dm
 import assistantInformation as ai
 import systemManagement as device
-# Speech recognitionn with Google Speech Recognition API
 
 
 engine = pyttsx3.init()
 r = sr.Recognizer()
 
-# Assitante voice configurations
-""" RATE"""
-# For girl voice we can use the range +f1 to +f4
-# Remove the +fX we will have a default man voice
+"""
+SET Assistant voice configuration
+For girl voice we can use the range +f1 to +f4
+Remove the +fX we will have a default man voice
+"""
 engine.setProperty('voice', 'english+f2')
 rate = engine.getProperty('rate')  # getting details of current speaking rate
 engine.setProperty('rate', 185)    # setting up new voice rate
 print(rate)                        # printing current voice rate
 
 
-file_path = 'data.json'
 
 """
     Wikipedia query search
 """
-# Ask to the user in which language he would like to fetch the wiki
-def get_result_language():
-    print('Inside get result language')
-
-    language = ask_to_user()
-    print('LANGUAGE HEARD  ' + str(language))
-    if "English" in language:
-        return 'en'
-    elif "Swedish" in language:
-        return 'sv'
-    elif "German" in language:
-        return 'de'
-    elif "French" in language:
-        return 'fr'
-    elif "Russian" in language:
-        return 'ru'
-    elif "Italian" in language:
-        return 'it'
-    elif "Spanish" in language:
-        return 'es'
-    print('Problem language retunr')
-    return 'dne'
-
-
+# Ask to the user what to search on wikipedia
 def get_page_to_search():
     research_message = 'What would you like to search?'
     print(research_message)
@@ -62,6 +41,7 @@ def get_page_to_search():
     return page
 
 
+# Search on wikipedia 
 def wikipedia_search(page_search):
     # Set language
     wikipedia.set_lang('en')
@@ -69,7 +49,7 @@ def wikipedia_search(page_search):
     print(wikipedia.summary(page_name, sentences=1))
     engine.say(wikipedia.summary(page_name, sentences=1))
 
-
+# Create an instante of the Microphone object and listen to what the user says
 def ask_to_user():
     try:
         with sr.Microphone() as source:
@@ -84,9 +64,10 @@ def ask_to_user():
         ask_to_user()
 
 
+# Execute a command in according to what the user says 
 def commands_control():
+    engine.say('What Can I do for you?')
     while(True):
-        engine.say('What Can I do for you?')
         command = ask_to_user()
         command = command.lower()
         # Find possible command 
@@ -110,6 +91,7 @@ def commands_control():
             search = get_page_to_search()
             wikipedia_search(search)
         else:
+            # If the user does not say anything 
             did_not_get_information_message = 'I am sorry I did not get what you asked me'
             prit(did_not_get_information_message)
             engine.say(did_not_get_information_message)
@@ -117,9 +99,8 @@ def commands_control():
             engine.runAndWait()
         engine.runAndWait()
 
-# Main
-def main():
+
+
+# Entry point of the application 
+if __name__ == '__main__':
     commands_control()
-
-
-main()
