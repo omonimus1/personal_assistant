@@ -41,7 +41,7 @@ python assistant.py
 ```
 
 
-## Third part modules used
+## System requirements
 * Python interpreter
 * pyttsx3 ```pip install pyttsx3```
 * libespeak1 ```sudo apt-get install libespeack1```
@@ -52,7 +52,6 @@ python assistant.py
 ### Problems with PyAudio?
 ```sudo apt-get install portaudio19-dev python-pyaudio```
 
-
 pip install -r quirements.txt
 
 ## How to contribute
@@ -62,7 +61,6 @@ pip install -r quirements.txt
 
 ## When to contribute
 1. If you want to suggest a new feature or update
-2. In case you would like to fix a bug
 
 ## Mind that
 Constructive criticisms or code reviews of any kind are very much welcome.
