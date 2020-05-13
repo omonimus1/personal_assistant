@@ -1,16 +1,15 @@
 # personal_assistant
 
 1. [What you can find in this repository](#What-you-can-find-in-this-repository)
-2. [How to contribute](#How-to-contribute)
-3. [Functionalities](#Functionalities)
-4. [How to run it](#How-to-run-it)
+2. [Functionalities](#Functionalities)
+3. [How to run it](#How-to-run-it)
+4. [How to contribute](#How-to-contribute)
 5. [Connect with me](#Connect-with-me)
 
 
 ## What you can find in this repository
 
 Here you can find a personal assistant  that I have created to learn more about Text-To-Speech and Spee-to-Text techinques and practice with Python.
-
 
 # Functionalities
 
@@ -22,7 +21,6 @@ Sophia (the virtual assistant), is able to:
 * Provide you information about the percentage of the battery and its state (plugged or not plugged)
 
 # How to run it
-
 ```
 # Activate the virtual environment 
 source venv/bin/activate
@@ -36,10 +34,7 @@ python assistant.py
 # try to say 'Hello assistant'
 # OR 'How are you' / 'What date is today'
 # OR 'reboot my computer' / 'turn off my computer' etc...
-
-
 ```
-
 
 ## System requirements
 * Python interpreter
@@ -52,7 +47,6 @@ python assistant.py
 ### Problems with PyAudio?
 ```sudo apt-get install portaudio19-dev python-pyaudio```
 
-pip install -r quirements.txt
 
 ## How to contribute
 1. Fork the repository

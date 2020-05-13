@@ -1,12 +1,8 @@
 
 import pyttsx3
-import psutil  # https://github.com/giampaolo/psutil
 import speech_recognition as sr
 
-
-
 engine = pyttsx3.init()
-
 
 # Introduce the personal assistant
 def assistant_introduction():
@@ -20,11 +16,6 @@ def provide_assistant_age():
     print(age_response)
     engine.say(age_response)
 
-
-def list_functionalities():
-    functionalities = 'Give you current time and date'
-    print(functionalities)
-    engine.say(functionalities)
 
 def assistant_emotion_state():
     state = 'I am very well, thank you'
