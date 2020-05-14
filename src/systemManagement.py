@@ -21,7 +21,6 @@ def get_battery_state():
     engine.say(battery_informations)
 
 
-
 def turn_off_device():
     shut_down_message = 'Shutting down the device'
     print(shut_down_message) 
