@@ -12,7 +12,7 @@ import wikipedia
 import dateManagement as dm
 import assistantInformation as ai
 import systemManagement as device
-
+import youtube
 
 engine = pyttsx3.init()
 r = sr.Recognizer()
@@ -68,7 +68,8 @@ def ask_to_user():
 def commands_control():
     engine.say('What Can I do for you?')
     while(True):
-        command = ask_to_user()
+        #command = ask_to_user()
+        command = 'youtube song'
         command = command.lower()
         # Find possible command 
         if 'hi' in command or 'hello' in command:
@@ -81,15 +82,25 @@ def commands_control():
             ai.assistant_emotion_state()
         elif 'date' in command and  'today' in command:
             dm.say_today_date()
+        elif 'search' in command or 'means' in command:
+            search = get_page_to_search()
+            wikipedia_search(search)
+        elif 'play' in command or 'song' in command or 'youtube' in command:
+            # Try to filter the query search to have more optimal results
+            if 'play' in command:
+                command.replace('play','')
+            elif 'song' in command:
+                command.replace('song', '')
+            elif 'youtube' in command:
+                command.replace('youtube', '')
+            youtube.play_video('https://www.youtube.com/watch?v=FQkaH5ppFek')
         elif 'battery' in command:
             device.get_battery_state()
         elif 'reboot' in command:
             device.reboot_device()
         elif 'turn off' in command:
             device.turn_off_device
-        elif 'search' in command or 'means' in command:
-            search = get_page_to_search()
-            wikipedia_search(search)
+
         else:
             # If the user does not say anything 
             did_not_get_information_message = 'I am sorry I did not get what you asked me'
