@@ -56,6 +56,8 @@ def ask_to_user():
             print("Say something")
             audio = r.listen(source)
             print("Time over, THANKS")
+            # If not understandable is said, or the user do not say anything
+            # r.recognize_google() will rise an expetion
             vocal_command = r.recognize_google(audio)
             print('I heard: ' + str(vocal_command))
             return str(vocal_command)   
@@ -68,24 +70,23 @@ def ask_to_user():
 def commands_control():
     engine.say('What Can I do for you?')
     while(True):
-        #command = ask_to_user()
-        command = 'youtube song'
+        command = ask_to_user()
         command = command.lower()
         # Find possible command 
-        if 'hi' in command or 'hello' in command:
+        if command in ['hi', 'hello']:
             dm.say_hello()
-        elif 'your name' in command:
+        elif command in 'your name':
             ai.assistant_introduction()
-        elif 'old are you' in command:
+        elif command in 'old are you':
             ai.provide_assistant_age()
-        elif 'how are you' in command:
+        elif command in 'how are you':
             ai.assistant_emotion_state()
         elif 'date' in command and  'today' in command:
             dm.say_today_date()
-        elif 'search' in command or 'means' in command:
+        elif command  in ['means','search', 'mean', 'wikipedia']:
             search = get_page_to_search()
             wikipedia_search(search)
-        elif 'play' in command or 'song' in command or 'youtube' in command:
+        elif command in ['play', 'song', 'youtube']:
             # Try to filter the query search to have more optimal results
             if 'play' in command:
                 command.replace('play','')
@@ -100,14 +101,6 @@ def commands_control():
             device.reboot_device()
         elif 'turn off' in command:
             device.turn_off_device
-
-        else:
-            # If the user does not say anything 
-            did_not_get_information_message = 'I am sorry I did not get what you asked me'
-            prit(did_not_get_information_message)
-            engine.say(did_not_get_information_message)
-            commands_control()
-            engine.runAndWait()
         engine.runAndWait()
 
 
