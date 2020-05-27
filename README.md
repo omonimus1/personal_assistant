@@ -43,7 +43,8 @@ python assistant.py
 * SpeechRecognition ```pip install SpeechRecognition```
 * PyAudio  ```pip install PyAudio```
 * psutil ```wget https://bootstrap.pypa.io/get-pip.py -O - | python``` 
-
+* mps-youtube ```pip install --upgrade youtube-dl```
+* Python binding - vlc ``` https://wiki.videolan.org/Python_bindings/```
 ### Problems with PyAudio?
 ```sudo apt-get install portaudio19-dev python-pyaudio```
 

@@ -12,7 +12,7 @@ import wikipedia
 import dateManagement as dm
 import assistantInformation as ai
 import systemManagement as device
-
+import youtube
 
 engine = pyttsx3.init()
 r = sr.Recognizer()
@@ -56,6 +56,8 @@ def ask_to_user():
             print("Say something")
             audio = r.listen(source)
             print("Time over, THANKS")
+            # If not understandable is said, or the user do not say anything
+            # r.recognize_google() will rise an expetion
             vocal_command = r.recognize_google(audio)
             print('I heard: ' + str(vocal_command))
             return str(vocal_command)   
@@ -71,32 +73,34 @@ def commands_control():
         command = ask_to_user()
         command = command.lower()
         # Find possible command 
-        if 'hi' in command or 'hello' in command:
+        if command in ['hi', 'hello']:
             dm.say_hello()
-        elif 'your name' in command:
+        elif command in 'your name':
             ai.assistant_introduction()
-        elif 'old are you' in command:
+        elif command in 'old are you':
             ai.provide_assistant_age()
-        elif 'how are you' in command:
+        elif command in 'how are you':
             ai.assistant_emotion_state()
         elif 'date' in command and  'today' in command:
             dm.say_today_date()
+        elif command  in ['means','search', 'mean', 'wikipedia']:
+            search = get_page_to_search()
+            wikipedia_search(search)
+        elif command in ['play', 'song', 'youtube']:
+            # Try to filter the query search to have more optimal results
+            if 'play' in command:
+                command.replace('play','')
+            elif 'song' in command:
+                command.replace('song', '')
+            elif 'youtube' in command:
+                command.replace('youtube', '')
+            youtube.play_video('https://www.youtube.com/watch?v=FQkaH5ppFek')
         elif 'battery' in command:
             device.get_battery_state()
         elif 'reboot' in command:
             device.reboot_device()
         elif 'turn off' in command:
             device.turn_off_device
-        elif 'search' in command or 'means' in command:
-            search = get_page_to_search()
-            wikipedia_search(search)
-        else:
-            # If the user does not say anything 
-            did_not_get_information_message = 'I am sorry I did not get what you asked me'
-            prit(did_not_get_information_message)
-            engine.say(did_not_get_information_message)
-            commands_control()
-            engine.runAndWait()
         engine.runAndWait()
 
 
