@@ -6,6 +6,10 @@
 4. [How to contribute](#How-to-contribute)
 5. [Connect with me](#Connect-with-me)
 
+## Support me
+[Paypal Me](https://www.paypal.com/paypalme/davidepollicino7?locale.x=en_US)
+</br></br>
+<a href="https://www.buymeacoffee.com/omonimus1" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 
 ## What you can find in this repository
 
