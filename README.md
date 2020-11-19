@@ -67,3 +67,8 @@ If you have any questions about the solutions you can find here, feel free to co
 * [davidepollicino2015@gmail.com](mailto:davidepollicino2015@gmail.com?subject=[GitHub]%20PersonalAssistant)
 * [Linkedin](https://www.linkedin.com/in/davidepollicino7/)
 * [www.davidepollicino.com](http://davidepollicino.com/)
+
+## Support me
+[Paypal Me](https://www.paypal.com/paypalme/davidepollicino7?locale.x=en_US)
+</br></br>
+<a href="https://www.buymeacoffee.com/omonimus1" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
